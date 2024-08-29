@@ -1,0 +1,176 @@
+login-main{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    font-family:'Poppins';
+}
+.image{
+    width: 50%;
+    height:50%;
+    display: inline-block;
+}
+.logo{
+    margin-top:100px;
+    position: relative;
+    /* margin-top: auto; */
+    display: block;
+    margin-left: auto;
+    margin-right: -114.3%;
+}
+.login-heading{
+    margin:10%;
+    position: absolute;
+    width: 300px;
+    height: 3px;
+}
+
+h1{
+    position: absolute;
+    margin: 7%;
+    font-size: 320%;
+    font-weight: bolder;
+    margin-left: 40%;
+}
+
+.login-underline {
+    position: absolute;
+    border-color: rgba(255, 168, 177, 1);
+    width: 28%;
+    border-width: 2px;
+    border-style: solid;
+    margin-left: 48%;
+    margin-top: 27%;
+    border-radius: 50px;
+}
+
+.mobile{
+    position: absolute;
+    margin-top: -32%;
+    width: 30%;
+    text-align: center;
+}
+
+.email{
+    font-size: 190%;
+    font-weight: bolder;
+    margin-left: 13%;
+    opacity: 0;
+    animation: fadeInSlideUp 1s ease forwards;
+}
+
+.user-email{
+    font-size: x-large;
+    font-weight: bolder;
+    width: 70%;
+    margin-left: 14%;
+    border: none;
+    outline: none;
+    font-family: 'Poppins';
+    background: #F8EAEC;
+}
+
+.email-underline{
+    position: absolute;
+    border-color: black;
+    width: 68%;
+    border-width: 2px;
+    border-style: solid;
+    margin-left: 22%;
+    border-radius: 50px;
+}
+
+.getotp{
+    position: absolute;
+    width: 15%;
+    height: 50px;
+    margin-top: 30%;
+    margin-left: -42%;
+    font-weight: bolder;
+    font-size: x-large;
+    border-radius: 50px;
+    background-color: rgba(255, 168, 177, 1);
+    border: none;
+    outline: none;
+}
+
+.getotp:hover,.register:hover{
+    cursor: pointer;
+    transform: scaleX(1.5);
+    transform: scaleY(1.3);
+    background-color: rgba(191, 129, 138, 1);
+    color: black;
+}
+
+.register{
+    position: absolute;
+    width: 15%;
+    height: 50px;
+    margin-left: 8%;
+    margin-top:-17%;
+    font-weight:bolder;
+    font-size:x-large;
+    border-radius:50px;
+    background-color: rgba(254, 240, 231, 1);
+    border: none;
+    outline: none;
+}
+
+
+@keyframes fadeInSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@media(width:1024px){
+    .image{
+        width: 50%;
+        height:50%;
+    }
+    .logo{
+        width: 650px;
+        height: 700px;
+        margin-top:100px;
+        /* margin-left: auto; */
+        margin-left: 73%;
+    }
+    h1{
+        margin: 7%;
+        margin-left: 25%;
+    }
+    .login-underline{
+        
+        width:28%;
+        margin-left: 32%;
+    }
+    .mobile{
+        position: absolute;
+        margin-left: 3%;
+        margin-top: -50%;
+    }
+    .email{
+        margin-left: -2%;
+        font-size: 27px;
+    }
+    .user-email{
+        font-size: x-larger;
+        width: 90%;
+        margin-left: 9%;
+    }
+    .email-underline{
+        margin-left: 10%;
+        width: 87%;
+    }
+    .getotp{
+        position: absolute;
+        margin-top: 39%;
+    }
+}
