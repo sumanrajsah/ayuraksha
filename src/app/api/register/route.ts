@@ -28,17 +28,24 @@ export async function POST(req:Request){
             
             const db= client.db('ayuraksha');
             const user= db.collection('users_data')
-
-            const check_user= await user.findOne({email_id:data.email_id});
-            if(!check_user){
+            const otpdb= db.collection('otp')
+            const  otp=await otpdb.findOne({email_id:data.email})
+            if(otp){      
+            const check_user= await user.findOne({email:data.email});
+            if(!check_user && otp.otp === data.otp){
                 const register=await user.insertOne(data);
                 if(register){
-                    console.log(register)
-                    return NextResponse.json('registered')
+                    console.log(register,'successfull registered')
+                    return NextResponse.json('registered successfull')
                 }
             }
+            
             console.log(check_user)
+            
         }
+      }
+        
+      
         return NextResponse.json('found')
     }catch(e){
         console.log(e)
