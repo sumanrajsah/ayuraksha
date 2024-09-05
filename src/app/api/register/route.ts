@@ -56,7 +56,7 @@ export async function POST(req:Request){
                 }
             }
             else if(otp.otp !== data.otp){
-            return NextResponse.json({success:false,message:'Otp expired'})
+            return NextResponse.json({success:false,message:'Invalid Otp'})
             }
             else{
             return NextResponse.json({success:false,message:'already registered'})

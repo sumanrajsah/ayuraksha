@@ -86,6 +86,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ success: true, message: 'otp sent successfully' })
       }
+      return NextResponse.json({ success: false, message: 'user not found' })
     }
   } catch (e) {
     console.log(e)

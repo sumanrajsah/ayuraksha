@@ -12,10 +12,13 @@
     padding:10px;
 }
 .profile-headContainer{
-    border: 2px solid black;
+    /* border: 2px solid black; */
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+.profile-heading{
+    padding: 0px 35px;
 }
 .profile-roundLine{
     background-color: #FFA8B1;
@@ -32,29 +35,75 @@
 .profile-box-border{
     border:2px solid #FFA8B1;
     border-radius: 25px;
-    padding: 10px;
+    padding: 20px 60px;
     margin: 20px;
+    font-size: 1rem;
 }
 .profile-contact-details-cont{
     width: 35vw;
-    height: 35vh;
-    
+    height: 40vh;
+    background: white;
 }
 .profile-info-cont{
-  width: 55vw;
-  height: 40vh;
+    width: 55vw;
+    height: 42vh;
+    background: white;
 }
 .profile-overview-cont{
     width: 35vw;
     height: 30vh;
-    
+    background: white;
 }
 .profile-history-cont{
     width: 55vw;
     height: 40vh;
+    background: white;
 }
 .profile-image-name{
-    border:2px solid;
+    /* border:2px solid; */
     display:flex;
-    align-content:center;
+    align-items:center;
+    justify-content: space-evenly;
+}
+.profile-class-pink{
+    font-weight:bold;
+    color: #D4616D;
+}
+.profile-emergency-contact-heading{
+    color:grey;
+    font-weight: bold;
+    font-size: 0.8em;
+    position: relative;
+    left: 30px;
+}
+
+.profile-box-inner{
+    /* border: 2px solid red; */
+    display: inline-block;
+    width: 50%;
+}
+.profile-box-inner-33{
+    /* border: 2px solid red; */
+    display: inline-block;
+    width: 33%;
+}
+.profile-class-near{
+    position: relative;
+    top: -3px;
+}
+.profile-personl-info-heading{
+    position: relative;
+    left: -25px;
+    margin-bottom: 10px;
+}
+.profile-allergies-button{
+    background-color: #FFA8B1;
+    color: #321E21;
+    border: none;
+    font-weight:bold;
+    position: relative;
+    top: -15px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    padding: 10px 20px;
 }

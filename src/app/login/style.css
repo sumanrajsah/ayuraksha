@@ -110,6 +110,12 @@
     background-color: rgba(248, 234, 236, 1);
     font-size: 24px;
 }
+.logintimer-text{
+    position: relative;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
 .email-underline {
     position: relative;
