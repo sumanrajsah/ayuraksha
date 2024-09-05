@@ -1,0 +1,60 @@
+.profile-main-container{
+    position: absolute;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins';
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Poppins';
+    background-color: rgba(248, 234, 236, 1);
+    padding:10px;
+}
+.profile-headContainer{
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.profile-roundLine{
+    background-color: #FFA8B1;
+    height: 4px;
+    width:77px;
+    position: relative;
+    left:10px;
+}
+.profile-details-cont{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.profile-box-border{
+    border:2px solid #FFA8B1;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 20px;
+}
+.profile-contact-details-cont{
+    width: 35vw;
+    height: 35vh;
+    
+}
+.profile-info-cont{
+  width: 55vw;
+  height: 40vh;
+}
+.profile-overview-cont{
+    width: 35vw;
+    height: 30vh;
+    
+}
+.profile-history-cont{
+    width: 55vw;
+    height: 40vh;
+}
+.profile-image-name{
+    border:2px solid;
+    display:flex;
+    align-content:center;
+}

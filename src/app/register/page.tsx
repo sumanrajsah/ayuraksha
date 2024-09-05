@@ -4,6 +4,7 @@ import "./style.css";
 import '@fontsource/poppins'
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import axios from 'axios'
+import { useRouter } from "next/navigation";
 
 interface FormData {
     firstName: string;
@@ -26,6 +27,8 @@ export default function Register() {
     const [timer, setTimer] = useState(0);
     const [isOtpButtonDisabled, setIsOtpButtonDisabled] = useState(false);
     const [warning,setWarning]=useState('')
+    const router =useRouter();
+    const verifyForm= formData.aadhar && formData.email && formData.firstName && formData.lastName && formData.phone;
 
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
@@ -53,12 +56,25 @@ export default function Register() {
     };
 
     const handleSubmit = async(e: FormEvent) => {
-        if(formData && formData.otp && formData.otp.length===6){
+        if(verifyForm && formData.otp && formData.otp.length===6){
+            if(!(formData.aadhar.length === 12)) {setWarning('aadhar number should be 12 digits')
+                setTimeout(() => {
+                    setWarning('');
+                }, 3000);
+            };
+            if(!(formData.phone.length === 10)) {setWarning('mobile number should be 10 digits')
+                setTimeout(() => {
+                    setWarning('');
+                }, 3000);
+            };
         e.preventDefault();
-        // Handle form submission logic here
-        console.log("Form Data:", formData);
         try{
-            const res = axios.post('/api/register',formData);
+            const res =await axios.post('/api/register',formData);
+            if(res.data.success){setWarning('');router.push('/login')}
+            else{setWarning((timer?`${res.data.message}`:' Invalid otp'))
+                setTimeout(() => {
+                setWarning('');
+            }, 3000);}
         }catch(e){}
         }
         else{
@@ -71,18 +87,18 @@ export default function Register() {
 
     const handleGetOtp = async (e: FormEvent) => {
         e.preventDefault();
-        if(formData.email){
+        if(verifyForm && formData.email){
         try{
-            const response = axios.post('/api/getotp',{email:formData.email})
-            if((await response).status){
-                console.log((await response).status)
-                setTimer(60);  // Start the 60-second timer
-                setIsOtpButtonDisabled(true);
+            const response =await axios.post('/api/getotp',{email:formData.email})
+            if(response.data.success){
+                setTimer(60);
+                setIsOtpButtonDisabled(true)
             }
+           
         }catch(e){}
     }
     else{
-        setWarning('enter email first')
+        setWarning('Fill the form first')
         setTimeout(() => {
             setWarning('');
         }, 3000); 
@@ -158,7 +174,7 @@ export default function Register() {
                 <button
                     type="submit"
                     className="register-input register-submit_button"
-                    disabled={!(formData.otp)}
+                    disabled={!(verifyForm)}
                 >
                     Submit
                 </button>
