@@ -1,0 +1,6 @@
+.home-main{
+position: absolute;
+display: flex;
+flex-direction: row;
+  font-family: "Poppins";
+}

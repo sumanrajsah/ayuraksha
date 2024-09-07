@@ -38,11 +38,9 @@ export async function POST(req:Request){
           phone_no:data.phone,
           email_address:data.email,
           created_date:`${Date.now()}`,
-          auid:`${data.phone}${Date.now()}`
+          auid:`${data.phone}${Date.now()}`,
         }
-      
         if(a){
-            
             const db= client.db('ayuraksha');
             const user= db.collection('users_data')
             const otpdb= db.collection('otp')

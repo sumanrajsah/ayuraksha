@@ -1,17 +1,23 @@
 'use client';
 
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, useContext } from 'react';
 import './style.css';
 import Image from 'next/image';
 import '@fontsource/poppins'
 import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
+import { ProfileContext } from '../profileContext';
 export default function Verification() {
     const searchParams=useSearchParams();
     const email = searchParams.get('id');
     const [otp, setOtp] = useState('');
     const [isOtpVisible, setOtpVisible] = useState(false);
     const [timer,setTimer]=useState(60);
+    const profileContext = useContext(ProfileContext);
+    if (!profileContext) {
+        throw new Error('ProfileContext is not provided');
+      }
+      const { profileData, setProfileData } = profileContext;
     const router=useRouter();
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
@@ -39,7 +45,10 @@ export default function Verification() {
             try{
                 const response = await axios.post('/api/login',{email:email,otp:otp})
                 if(response.data.success){
-                  
+                  setProfileData(response.data.profile_data)
+                  setTimeout(() => {
+                    router.push('/profile');
+                }, 1000);
                 }else if(response.data.message){
                     alert(response.data.message);
                 }
@@ -48,7 +57,6 @@ export default function Verification() {
             }
         }
     };
-
     return (
         <main className="verification-main">
             <div className="verification-form">

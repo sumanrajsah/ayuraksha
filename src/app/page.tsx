@@ -1,10 +1,13 @@
 'use client'
 import Image from "next/image";
-import styles from "./page.module.css";
+import './style.css'
+import Navbar from "./components/navbar";
+import "@fontsource/poppins"; 
 export default function Home() {
   return (
-    <main className={styles.main}>
-    Welcome to AyuRaksha
+    <main className="home-main" >
+      <Navbar/>
+      <p >Welcome to AyuRaksha</p>
     </main>
   );
 }
