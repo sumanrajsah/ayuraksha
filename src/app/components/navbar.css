@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     border-radius: 0px 50px 50px 0px;
+    background: #F8EAEC;
     gap: 20px;
     z-index: 1;
     svg {
@@ -39,7 +40,6 @@
   .menu-item {
     display: flex;
     align-items: center;
-
     /* Space between each menu item */
     transition: all 0.3s ease;
     /* Smooth transition */
