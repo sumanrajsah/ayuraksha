@@ -3,18 +3,18 @@ import './appointmentStatus';
 import AppointmentStatus from './appointmentStatus';
 export default function Appointment() {
     const appointments = [
-        { id: 1, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: `Pending` },
-        { id: 2, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 3, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 4, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 5, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 6, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 7, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 8, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 9, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 10, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 11, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
-        { id: 12, visitType: 'New Symptoms', clinician: 'Dr. Chandra', provider: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-', insurance: 'Check', status: 'Pending' },
+        { id: 1, visitType: 'Noramal', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: `Pending` },
+        { id: 2, visitType: 'Noramal', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 3, visitType: 'Noramal', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 4, visitType: 'Noramal', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 5, visitType: 'Urgent', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 6, visitType: 'Urgent', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 7, visitType: 'Urgent', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 8, visitType: 'Urgent', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 9, visitType: 'Urgent', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 10, visitType: 'Urgent', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 11, visitType: 'Urgent', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
+        { id: 12, visitType: 'Urgent', Doctor: 'Dr. Chandra', Hospital: 'Cris Velaskez', location: 'City Hospital', date: '02/06/2024', duration: '40 min', comments: '-',  status: 'Pending' },
     ];
     return (
         <div className="appointment-main-cont">
@@ -28,13 +28,12 @@ export default function Appointment() {
                         <tr>
                             <th>S.No</th>
                             <th>Visit Type</th>
-                            <th>Clinician</th>
-                            <th>Provider</th>
+                            <th>Doctor</th>
+                            <th>Hospital Name</th>
                             <th>Location</th>
                             <th>Date</th>
                             <th>Duration</th>
                             <th>Comments</th>
-                            <th>Insurance</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -43,13 +42,12 @@ export default function Appointment() {
                             <tr key={appointment.id}>
                                 <td>{appointment.id}</td>
                                 <td>{appointment.visitType}</td>
-                                <td>{appointment.clinician}</td>
-                                <td>{appointment.provider}</td>
+                                <td>{appointment.Doctor}</td>
+                                <td>{appointment.Hospital}</td>
                                 <td>{appointment.location}</td>
                                 <td>{appointment.date}</td>
                                 <td>{appointment.duration}</td>
                                 <td>{appointment.comments}</td>
-                                <td>{appointment.insurance}</td>
                                 <td className="status"><AppointmentStatus/>{appointment.status}</td>
                             </tr>
                         ))}
