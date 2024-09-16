@@ -37,7 +37,7 @@
     width: 40%;
     right: 24%;
     height: 100%;
-    gap:20px;
+    gap:50px;
     /* background-color: green; */
 }
 
@@ -69,7 +69,7 @@
     justify-content: center;
     align-items: center;
     width: 90%;
-    height: 200px;
+    height: auto;
     /* background-color: red; */
 }
 
@@ -130,40 +130,27 @@
     background-color: black;
 }
 
-.getotp-button-cont {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    width: auto;
-    padding: 5px;
-    /* background-color: red; */
-}
 
 .getotp-button {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 200px;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: bolder;
     justify-content: center;
     align-items: center;
-    height: 50px;
     border-radius: 50px;
-    background-color: rgba(255, 168, 177, 1);
     border: none;
-    outline: none;
-    transition: background-color 0.3s, border 0.3s;
+    color:#25B3C2;
+    background: none;
+    left: 22%;
+    bottom: 10%;
+    cursor: pointer;
+}
+.getotp-button:hover{
+    color: #BF818A;
 }
 
-.getotp-button:hover {
-    cursor: pointer;
-    border: 2px solid rgba(212, 97, 109, 1);
-    background-color: transparent;
-}
 
 .register-button-cont {
     position: relative;

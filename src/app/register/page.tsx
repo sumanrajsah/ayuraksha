@@ -89,10 +89,23 @@ export default function Register() {
         e.preventDefault();
         if(verifyForm && formData.email){
         try{
-            const response =await axios.post('/api/getotp',{email:formData.email})
+            const response =await axios.post('/api/getotp',formData)
             if(response.data.success){
                 setTimer(60);
                 setIsOtpButtonDisabled(true)
+
+            }
+            if(response.data.message === 'Aadhar not found'){
+                setWarning('Invalid Aadhar Number')
+                setTimeout(() => {
+                    setWarning('');
+                }, 3000); 
+            }
+            if(response.data.message === 'name not matched'){
+                setWarning('Please check your name not matched with Aadhar')
+                setTimeout(() => {
+                    setWarning('');
+                }, 3000); 
             }
            
         }catch(e){}

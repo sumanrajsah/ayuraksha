@@ -54,10 +54,6 @@ export async function POST(req: Request) {
       if(uidUser == null){
         return NextResponse.json({ success: false, message: 'Aadhar not found' })
       }
-      if(uidUser.firstName!==data.firstName || uidUser.lastName!==data.lastName){
-        return NextResponse.json({ success: false, message: 'name not matched' })
-
-      }
       const mailOptions = {
         from: '"AyuRaksha" <rsuman7868@gmail.com>',
         to:uidUser.email,

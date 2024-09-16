@@ -9,29 +9,95 @@ import '@fontsource/poppins'
 export default function Login() {
     const router = useRouter();
     const [isEmailVisible, setEmailVisible] = useState(false);
-    const [email,setEmail]=useState('');
+    const [aadhar,setAadar]=useState('');
     const [warning,setWarning]=useState('')
+    const [timer, setTimer] = useState(0);
+    const [otp,setOtp]=useState('')
+    const [isOtpButtonDisabled, setIsOtpButtonDisabled] = useState(false);
 
-    async function handleGetOtp(){
-        if(!email){ setWarning('please enter email first')
+    function validateNumber(input:any) {
+        return !isNaN(input) && Number.isFinite(Number(input));
+      }
+    
+    useEffect(() => {
+        let interval: NodeJS.Timeout | null = null;
+        if (timer > 0) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+        } else if (timer === 0 && isOtpButtonDisabled) {
+            setIsOtpButtonDisabled(false);
+        }
+
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
+    }, [timer, isOtpButtonDisabled]);
+    const handleGetOtp = async () => {
+        if(!validateNumber(aadhar)){
+            setWarning('Aadhar Number should be digit not alphabet')
             setTimeout(() => {
                 setWarning('');
-            }, 3000);
-            return;
+            }, 3000); 
+            return  ;
+        }
+        if(aadhar.length !== 12){
+            setWarning('Aadhar Number should be 12 digit')
+            setTimeout(() => {
+                setWarning('');
+            }, 3000); 
+            return  ;
+        }
+       
+        if(aadhar){
+        try{
+            const response =await axios.post('/api/getotp/login',{aadhar:aadhar})
+            if(response.data.success){
+                setTimer(60);
+                setIsOtpButtonDisabled(true)
+
+            }
+            if(response.data.message === 'Aadhar not found'){
+                setWarning('Invalid Aadhar Number')
+                setTimeout(() => {
+                    setWarning('');
+                }, 3000); 
+            }
+            if(response.data.message === 'name not matched'){
+                setWarning('Please check your name not matched with Aadhar')
+                setTimeout(() => {
+                    setWarning('');
+                }, 3000); 
+            }
+           
+        }catch(e){}
+    }
+    else{
+        setWarning('Fill the form first')
+        setTimeout(() => {
+            setWarning('');
+        }, 3000); 
+    }
+        
+    };
+
+    const handleLogin = async ()=>{
+        if(otp.length !==6){
+            setWarning('otp must be 6 digit')
+            setTimeout(() => {
+                setWarning('');
+            }, 3000); 
         }
         try{
-            const response = await axios.post('/api/getotp',{email:email})
+            const response = await axios.post('/api/login',{aadhar:aadhar,otp:otp});
             if(response.data.success){
-                if(response.data.message === 'user not found'){
-                    setWarning('user not found');
-                    setTimeout(() => {
-                        router.push('/register')
-                        setWarning('');
-                    }, 1000);
-                }
-               router.push(`/verification?id=${email}`)
+                router.push('/profile')
             }
-        }catch(e){}
+        }catch(e){
+
+        }
     }
 
     return (
@@ -46,26 +112,32 @@ export default function Login() {
                 </div>
                 <div className="login-user-input">
                 {warning &&<p style={{color:'red',fontWeight:'bold'}}>{warning}</p>}
-                    {isEmailVisible && <p className="login-email">Email / Mobile / Adhar</p>}
+                    {isEmailVisible && <p className="login-email">Adhar Number</p>}
                     <br />
                     <input
                         type="text"
                         className="user-email"
-                        placeholder={isEmailVisible ? "" : "Email / Mobile / Adhar"}
+                        placeholder={isEmailVisible ? "" : "Adhar Number"}
                         onClick={() => setEmailVisible(true)}
                         onBlur={() => setEmailVisible(false)}
-                        onChange={(e)=>setEmail(e.target.value)}
+                        onChange={(e)=>setAadar(e.target.value)}
                     />
                     <hr className="email-underline" />
                 </div>
-                <div className='getotp-button-cont'>
-                    <button className="getotp-button" onClick={handleGetOtp}>Get OTP</button>
-                </div>
+                {(isOtpButtonDisabled) &&<div className="login-user-input">
+                    <input
+                        type="text"
+                        className="user-email"
+                        placeholder='OTP'
+                        onChange={(e)=>setOtp(e.target.value)}
+                    />
+                    <hr className="email-underline" />
+                    <p>Resend otp in {timer}s</p>
+                </div>}
                 <div className='register-button-cont'>
-                    <div className='dont-have-account-cont'>
-                        <hr className='dont-have-account-above-line' />
-                        <p className="dont-have-account">Don't have account</p>
-                    </div>
+                    {(isOtpButtonDisabled)?<button className="register-button" onClick={handleLogin}>Login</button>:<button className="register-button"  onClick={handleGetOtp}>Get Otp</button>}
+                    <hr className='dont-have-account-above-line'/>
+                    <p className='dont-have-account'>Don't have account?</p>
                     <button className="register-button" onClick={() => router.push('/register')}>Register</button>
                 </div>
             </div>

@@ -13,7 +13,7 @@ export default function Navbar() {
   };
 
   return (
-    <div>
+    <div className="side-navbar-cont" style={{width:`${isExpanded ? '100vw':''}`,background:`${isExpanded ? '#d4616d74':''}`}}>
       <div className={`side-navbar ${isExpanded ? "expanded" : ""}`}> {/* Toggle the class based on state */}
         <div className="ayuraksha-logo-cont">
         <Image

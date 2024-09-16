@@ -5,6 +5,7 @@ import "./style.css";
 import "@fontsource/poppins";
 import axios from "axios";
 import { ProfileContext } from "../profileContext";
+import Navbar from "../components/navbar";
 
 export default function Profile() {
     const profileContext = useContext(ProfileContext);
@@ -43,7 +44,8 @@ export default function Profile() {
         };
     }, []);
     return (
-        <main>
+        <main className="profile-main">
+            <Navbar/>
             <div className="profile-main-container">
                 <div className="profile-headContainer">
                     <h1 className="profile-heading">Profile
@@ -223,7 +225,6 @@ export default function Profile() {
                     </div>
                 )}
             </div>
-
         </main>
     );
 }

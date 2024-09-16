@@ -66,6 +66,7 @@ export default function PatientsChart() {
     <div className='patientvisit-graph-main-cont'>
       {/* Buttons at the top */}
       <div className='patientvisit-graph-button' style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <h2>Number Of Patient's Visit Graph</h2><br/>
         <button onClick={() => setView('Today')} style={{ margin: '0 10px' }}>Today</button>
         <button onClick={() => setView('Weekly')} style={{ margin: '0 10px' }}>Weekly</button>
         <button onClick={() => setView('Monthly')} style={{ margin: '0 10px' }}>Monthly</button>

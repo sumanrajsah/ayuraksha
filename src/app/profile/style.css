@@ -1,3 +1,9 @@
+.profile-main{
+    position: absolute;
+display: flex;
+flex-direction: row;
+  font-family: "Poppins";
+}
 .profile-main-container{
     position: absolute;
     display: block;

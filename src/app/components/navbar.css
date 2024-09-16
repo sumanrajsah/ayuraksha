@@ -1,5 +1,11 @@
+.side-navbar-cont{
+  position: fixed;
+  display: flex;
+  z-index: 1;
+}
+
 .side-navbar {
-    position: fixed;
+
     font-family: "Poppins";
     border-right: 2px solid rgba(255, 168, 177, 0.5);
     border-bottom: 2px solid rgba(255, 168, 177, 0.5);
@@ -27,7 +33,7 @@
   
   .side-navbar.side-navbar.expanded {
     width: 250px;
-    background: rgb(255, 168, 177);
+    background: #F8EAEC;
     opacity: 1;
   }
   
