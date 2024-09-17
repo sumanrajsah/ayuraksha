@@ -9,19 +9,11 @@ import sjcl from 'sjcl'
 import {create} from 'kubo-rpc-client'
 import CryptoJS from "crypto-js";
 
+import { PinataSDK } from "pinata-web3";
 
-const projectId = process.env.NEXT_PUBLIC_INFURA_API;
-const projectSecret = process.env.NEXT_PUBLIC_INFURA_API_SECRET;
-const auth =
-  "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
-
-const clientInfura = create({
-  host: "ipfs.infura.io",
-  port: 5001,
-  protocol: "https",
-  headers: {
-    authorization: auth,
-  },
+const pinata = new PinataSDK({
+  pinataJwt: process.env.NEXT_PUBLIC_PINATA_JWT!,
+  pinataGateway: "rose-supposed-gamefowl-223.mypinata.cloud",
 });
 
 const network = "sepolia";
@@ -121,12 +113,12 @@ export async function POST(req:Request){
           const  otp=await otpdb.findOne({email_id:data.email})
           if(otp && process.env.NEXT_PUBLIC_SYSTEM_CONTRACT_ADDRESS){      
             const check_user= await user.findOne({email_address:data.email});
-            if(!check_user && otp.otp === data.otp){
+            if(!check_user && otp.otp === data.otp &&userProfile){
 
-              const cid = await ipfs.add(`${userProfile}`);
-              console.log(cid.cid)
-              clientInfura.pin.add(cid.cid)
-               const contractAdd = await deployContract(`ipfs://${cid.cid}`)
+              const file = new File([userProfile], "hello.json", { type: "application/json" })
+              const upload = await pinata.upload.file(file)
+              
+               const contractAdd = await deployContract(`ipfs://${upload.IpfsHash}`)
                const contract = new ethers.Contract(process.env.NEXT_PUBLIC_SYSTEM_CONTRACT_ADDRESS, systemAbi,wallet);  // signer or provider depending on use
                const aadharHash= CryptoJS.SHA256(data.aadhar).toString();
                console.log(await contract.storeAadharHash(aadharHash,contractAdd))

@@ -1,10 +1,32 @@
 import Image from "next/image";
 import './navbar.css';
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { HamburgerMenu, AboutUsButton, HomeButton, ServicesButton, HospitalsButton, AppointmentsButton, ResourcesButton, ContactUs, FaqButton } from "./svg";
+import Link from "next/link";
+import axios from "axios";
+import { ProfileContext } from "../profileContext";
 
 export default function Navbar() {
   const [isExpanded, setIsExpanded] = useState(false); // State to track if the menu is expanded
+  const profileContext = useContext(ProfileContext);
+  if (!profileContext) {
+      throw new Error('ProfileContext is not provided');
+    }
+    const { profileData,setProfileData } = profileContext;
+
+  useEffect(()=>{
+    const getProfileData= async()=>{
+      try{
+          const response= await axios.get('/api/profile/patient');
+          if(response.data.success){
+              console.log((response.data.reports))
+              setProfileData((response.data.reports))
+          }
+      }catch(e){}
+  }
+  getProfileData();
+  })
+  console.log(profileData)
  
 
   const toggleMenu = () => {
@@ -13,7 +35,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="side-navbar-cont" style={{width:`${isExpanded ? '100vw':''}`,background:`${isExpanded ? '#d4616d74':''}`}}>
+    <div className="side-navbar-cont" style={{width:`${isExpanded ? '100vw':''}`,backdropFilter:`${isExpanded ? 'blur(5px)':''}`}}>
       <div className={`side-navbar ${isExpanded ? "expanded" : ""}`}> {/* Toggle the class based on state */}
         <div className="ayuraksha-logo-cont">
         <Image
@@ -33,38 +55,38 @@ export default function Navbar() {
         </div>
         
         {/* Icons and their labels (conditionally rendered) */}
-        <div className="menu-item">
+        <Link href={'#'} className="menu-item">
           <AboutUsButton />
           {isExpanded && <span className="icon-label">About Us</span>}
-        </div>
-        <div className="menu-item">
+        </Link>
+        <Link href={'/'} className="menu-item">
           <HomeButton />
           {isExpanded && <span className="icon-label">Home</span>}
-        </div>
-        <div className="menu-item">
+        </Link>
+        <Link href={'#'} className="menu-item">
           <ServicesButton />
           {isExpanded && <span className="icon-label">Services</span>}
-        </div>
-        <div className="menu-item">
+        </Link>
+        <Link href={'#'} className="menu-item">
           <HospitalsButton />
           {isExpanded && <span className="icon-label">Hospitals</span>}
-        </div>
-        <div className="menu-item">
+        </Link>
+        <Link href={'#'} className="menu-item">
           <AppointmentsButton />
           {isExpanded && <span className="icon-label">Appointments</span>}
-        </div>
-        <div className="menu-item">
+        </Link>
+        <Link href={'#'} className="menu-item">
           <ResourcesButton />
           {isExpanded && <span className="icon-label">Resources</span>}
-        </div>
-        <div className="menu-item">
+        </Link>
+        <Link href={'#'} className="menu-item">
           <ContactUs />
           {isExpanded && <span className="icon-label">Contact Us</span>}
-        </div>
-        <div className="menu-item">
+        </Link>
+        <Link href={'#'} className="menu-item">
           <FaqButton />
           {isExpanded && <span className="icon-label">FAQ</span>}
-        </div>
+        </Link>
       </div>
     </div>
   );

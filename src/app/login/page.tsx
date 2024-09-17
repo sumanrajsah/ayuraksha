@@ -136,7 +136,7 @@ export default function Login() {
                 </div>}
                 <div className='register-button-cont'>
                     {(isOtpButtonDisabled)?<button className="register-button" onClick={handleLogin}>Login</button>:<button className="register-button"  onClick={handleGetOtp}>Get Otp</button>}
-                    <hr className='dont-have-account-above-line'/>
+    
                     <p className='dont-have-account'>Don't have account?</p>
                     <button className="register-button" onClick={() => router.push('/register')}>Register</button>
                 </div>

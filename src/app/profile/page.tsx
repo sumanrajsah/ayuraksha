@@ -28,6 +28,15 @@ export default function Profile() {
 
     // Close modal when clicking outside of it
     useEffect(() => {
+        const getProfileData= async()=>{
+            try{
+                const response= await axios.get('/api/profile/patient');
+                if(response.data.success){
+                    console.log((response.data.reports))
+                }
+            }catch(e){}
+        }
+        getProfileData();
         // Add 'MouseEvent' type to the event parameter
         const handleOutsideClick = (event: MouseEvent) => {
             const modal = document.getElementById("miniModal");
@@ -42,6 +51,7 @@ export default function Profile() {
             // Cleanup the event listener on component unmount
             window.removeEventListener("click", handleOutsideClick);
         };
+
     }, []);
     return (
         <main className="profile-main">
@@ -66,7 +76,7 @@ export default function Profile() {
                                 />
                             </div>
                             <div className="profile-name">
-                                <h1 className="profile-class-pink">{profileData?.profile_info.gender === 'male'?'Mr':'Ms'}{profileData?.first_name}</h1>
+                                <h1 className="profile-class-pink">{profileData.gender === 'Male'?'Mr ':'Ms '}{profileData.firstName}</h1>
                             </div>
                         </div>
                         <div className="profile-emergency-contact">
@@ -90,7 +100,7 @@ export default function Profile() {
                                     height={20}
                                     width={20}
                                     className="profile-photo-house"
-                                /> &nbsp;{profileData?.contact_details.address}
+                                /> &nbsp;4
                             </div>
                         </div>
                     </div>
@@ -99,41 +109,41 @@ export default function Profile() {
                         <div className="profile-box-outer">
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">First Name</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.first_name}</h2>
+                                <h2 className="profile-class-pink profile-class-near">{profileData.firstName}</h2>
                             </div>
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Last Name</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.last_name}</h2>
+                                <h2 className="profile-class-pink profile-class-near">{profileData.lastName}</h2>
                             </div>
                         </div>
                         <div className="profile-box-outer">
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Date of Birth</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.profile_info.dob}</h2>
+                                <h2 className="profile-class-pink profile-class-near">{}</h2>
                             </div>
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Email Address</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.email_address}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                         </div>
                         <div className="profile-box-outer">
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Father Name</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.personal_info?.father_name}</h2>
+                                <h2 className="profile-class-pink profile-class-near">{profileData.fathername}</h2>
                             </div>
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Mother Name</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.personal_info?.mother_name}</h2>
+                                <h2 className="profile-class-pink profile-class-near">{profileData.mothername}</h2>
                             </div>
                         </div>
                         <div className="profile-box-outer">
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Phone No.</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.phone_no}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Blood Type</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.personal_info?.blood_type}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                         </div>
                     </div>
@@ -142,15 +152,15 @@ export default function Profile() {
                         <div className="profile-box-outer">
                             <div className="profile-box-inner-33">
                                 <div className="profile-class-grey">First Name</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.first_name}</h2>
+                                <h2 className="profile-class-pink profile-class-near">{profileData.firstName}</h2>
                             </div>
                             <div className="profile-box-inner-33">
                                 <div className="profile-class-grey">Last Name</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.last_name}</h2>
+                                <h2 className="profile-class-pink profile-class-near">{profileData.lastName}</h2>
                             </div>
                             <div className="profile-box-inner-33">
                                 <div className="profile-class-grey">Gender</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.personal_info?.gender}</h2>
+                                <h2 className="profile-class-pink profile-class-near">{profileData.gender}</h2>
                             </div>
                         </div>
                         <div className="profile-box-outer">
@@ -160,7 +170,7 @@ export default function Profile() {
                             </div>
                             <div className="profile-box-inner-33">
                                 <div className="profile-class-grey">Joined Date</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.created_date}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                         </div>
 
@@ -170,27 +180,27 @@ export default function Profile() {
                         <div className="profile-box-outer">
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Condition</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.medical_history?.condition}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Last Checkup</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.medical_history?.last_checkup}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                         </div>
                         <div className="profile-box-outer">
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Hospital Name</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.medical_history?.hospital_name}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Upcoming Checkup Date</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.medical_history?.upcoming_checkup}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                         </div>
                         <div className="profile-box-outer">
                             <div className="profile-box-inner">
                                 <div className="profile-class-grey">Doctor</div>
-                                <h2 className="profile-class-pink profile-class-near">{profileData?.medical_history?.doctor_name}</h2>
+                                <h2 className="profile-class-pink profile-class-near"></h2>
                             </div>
                             <div className="profile-box-inner">
                                 <button className="profile-allergies-button" id="openModalBtn" onClick={openModal}>Allergies</button>

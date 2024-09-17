@@ -1,0 +1,92 @@
+.feedback-main {
+  font-family: 'Poppins';
+    display: flex;             
+    justify-content: center;     
+    align-items: center;         
+    flex-direction: column;      
+    height: 100vh;               
+    text-align: center;
+    /* padding: 10px;        */
+  }
+  
+.feedback-box{
+    margin-top: 10px;
+    padding: 10px;
+    width: 600px; 
+    border: 2px solid black;
+    border-radius: 20px;
+    
+}
+.feedback-heading-one{
+  padding-top: 2%;
+}
+.feedback-heading-two{
+  padding-top: 20px;
+  font-size: 1.5em;
+
+}
+.feedback-input{
+  font-family:'Poppins';
+  display: block;
+  border:none;
+  background: none;
+  color:#321E21;
+  /* font-weight: bold; */
+  border-bottom: 2px solid grey;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: medium;
+  width: 25em;
+}
+.feedback-input::placeholder {
+  color: #321E21; /* Replace with your desired color */
+  opacity: 1; /* Set to 1 for full opacity, or adjust as needed */
+}
+.feedback-input:focus {
+  font-weight: bold;
+  color: #000000; /* Change color to black on focus */
+  border-color: #000000; /* Optionally change border color */
+  outline: none; /* Remove the default focus outline (optional) */
+}
+.feedback-submit_button{
+  cursor: pointer;
+  border: none;
+  background-color: #FFA8B1;
+  border-radius: 25px;
+  padding:10px 50px;
+  width: 300px;
+  margin: auto;
+}
+.feedback-submit_button:hover{
+  background-color: transparent;
+  padding:8px 50px;
+  border: 2px solid #FFA8B1;
+}
+.feedback-form{
+/* border: 2px solid red; */
+display: inline-block;
+}
+.feedback-input[type="number"]::-webkit-outer-spin-button,
+.feedback-input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.feedback-reason{
+  font-family:'Poppins';
+  display: block;
+  border:none;
+  background: none;
+  color:#321E21;
+  font-weight: bold;
+  padding: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: medium;
+  width: 25em;
+  text-align: left;
+}
+.feedback-left-align{
+  text-align: left;
+}
+.feedback-radio{
+}

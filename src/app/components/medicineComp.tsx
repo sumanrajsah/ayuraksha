@@ -4,6 +4,8 @@ import { Download, Preview, Close, Printout } from './ehraction';
 import axios from 'axios';
 import UploadComponent from './uploadComp';
 import CryptoJS from 'crypto-js';
+import '@fontsource/poppins'
+import UploadMedComponent from './uploadMedicine';
 
 
 // Define the type for a report
@@ -28,7 +30,7 @@ function getMimeTypeFromBase64(base64String:string) {
   const mimeType = base64String.match(/^data:(.*);base64,/);
   return mimeType ? mimeType[1] : null;
 }
-export default function Ehr() {
+export default function MedicineComponent() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState('');
   const [report,setReport]=useState<Report[] | null>(null)
@@ -43,7 +45,7 @@ export default function Ehr() {
   // Function to handle the preview action
   const handlePreview = async(report:any) => {
     try{
-      const httpUrl = convertIpfsUriToHttp(report[4]);
+      const httpUrl = convertIpfsUriToHttp(report[2]);
       const response = await fetch(httpUrl);
       const blob = await response.blob(); // Get the file as a Blob
       console.log(await blob.text())
@@ -77,7 +79,7 @@ export default function Ehr() {
 
       const fetchReports= async() =>{
         try{
-          const response= await axios.get('/api/ehr');
+          const response= await axios.get('/api/medicine');
           if(response.data.success){
             setReport(response.data.reports.reverse())
           }
@@ -107,7 +109,7 @@ export default function Ehr() {
   
   const handleDownload = async (ipfsUri: string) => {
     try {
-      const httpUrl = convertIpfsUriToHttp(ipfsUri[4]); // Convert IPFS URI to HTTP
+      const httpUrl = convertIpfsUriToHttp(ipfsUri[2]); // Convert IPFS URI to HTTP
 
    
   
@@ -149,7 +151,7 @@ export default function Ehr() {
   };
   const handlePrint = async (ipfsUri: string) => {
     try {
-      const httpUrl = convertIpfsUriToHttp(ipfsUri[4]); // Convert IPFS URI to HTTP
+      const httpUrl = convertIpfsUriToHttp(ipfsUri[2]); // Convert IPFS URI to HTTP
 
       const response = await fetch(httpUrl);
       const blob = await response.blob();
@@ -188,10 +190,10 @@ export default function Ehr() {
   return (
     <div className="ehr-main-cont">
       <div className="ehr-heading-cont">
-        <h1 className="ehr-heading">EHR (Electronic Health Record)</h1>
+        <h1 className="ehr-heading">Medicine Records</h1>
       </div>
       <button className="upload-report-button" onClick={()=>setUploadModel(true)}>
-          Upload Reports
+          Upload Medicine
         </button>
       <div className="ehr-list-cont">
         <table className="ehr-table">
@@ -200,7 +202,6 @@ export default function Ehr() {
               <th>Date</th>
               <th>Issue/Consult For</th>
               <th>Doctor Name</th>
-              <th>Consulted By</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -208,9 +209,8 @@ export default function Ehr() {
             {report.map((report:any, index) => (
               <tr key={index}>
                 <td>{formatTimestamp(report[0])}</td>
-                <td>{report[1]}</td>
-                <td>{report[2]}</td>
                 <td>{report[3]}</td>
+                <td>{report[1]}</td>
                 <td>
                   <button className="btn-preview" onClick={() => handlePreview(report)}>
                     <Preview />
@@ -246,7 +246,7 @@ export default function Ehr() {
                <button className="btn-close" onClick={() => setUploadModel(false)}>
                  <Close />
                </button>
-               <UploadComponent/>
+               <UploadMedComponent/>
                </div>}
     </div>
   );
