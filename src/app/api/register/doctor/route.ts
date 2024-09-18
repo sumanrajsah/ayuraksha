@@ -17,7 +17,7 @@ const pinata = new PinataSDK({
 });
 
 const network = "sepolia";
-const provider = ethers.getDefaultProvider(network,{etherscan:process.env.NEXT_PUBLIC_ETHERSCAN_API});
+const provider = ethers.getDefaultProvider(network, {infura:process.env.NEXT_PUBLIC_INFURA_API});
 
 // Replace with your private key (use a test account for security)
 const privateKey = process.env.NEXT_PUBLIC_WALLET_PRIVATE_KEY;
@@ -95,11 +95,11 @@ export async function POST(req:Request){
 
         if(a){
           const db= client.db('ayuraksha');
-          const user= db.collection('users_data')
+          const user= db.collection('doctor_data')
           const otpdb= db.collection('otp')
-          const uiddb = client.db('aadhardb');
-          const uidCol= uiddb.collection('aadhar')
-          const uidUser = await uidCol.findOne({uniqueNumber:data.aadhar})
+          const uiddb = client.db('doctor');
+          const uidCol= uiddb.collection('licence')
+          const uidUser = await uidCol.findOne({uniqueNumber:data.licence})
           const userProfile = encryptData(JSON.stringify({
             firstName:uidUser?.firstName,
             lastName:uidUser?.lastName,

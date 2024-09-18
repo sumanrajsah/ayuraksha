@@ -1,190 +1,145 @@
 'use client';
-import React, { useState } from 'react';
-import './style.css'; 
-import '@fontsource/poppins';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import './style.css';
 
-type FeedbackType = {
-  name: string;
-  gender: string;
-  age: number;
-  patientId: number;
-  reason: string;
-  trustRating: string;
-};
+const FeedbackPage = () => {
+  const [option, setOption] = useState('doctor');
+  const [doctorUid, setDoctorUid] = useState('');
+  const [hospitalName, setHospitalName] = useState('');
+  const [subject, setSubject] = useState('');
+  const [description, setDescription] = useState('');
+  const [rating, setRating] = useState(0);
+  const [error, setError] = useState(''); // Track error messages
+  const router = useRouter(); // Use Next.js router for redirection
 
-const Feedback: React.FC = () => {
-  const [feedback, setFeedback] = useState<FeedbackType>({
-    name: '',
-    gender: '',
-    age: 0,
-    patientId: 0,
-    reason: '',
-    trustRating: ''
-  });
-
-  const [submitted, setSubmitted] = useState<boolean>(false);
-
-  // Handle input change
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setFeedback(prevFeedback => ({
-      ...prevFeedback,
-      [name]: value
-    }));
+  const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setOption(e.target.value);
+    setError(''); // Reset error on option change
   };
 
-  // Handle form submission
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleRatingChange = (index: number) => {
+    setRating(index);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!subject || !description || rating === 0 || (option === 'doctor' && !doctorUid) || (option === 'hospital' && !hospitalName)) {
+      setError('Please fill out all fields before submitting.');
+      return;
+    }
+
+    const feedbackData = {
+      option,
+      doctorUid: option === 'doctor' ? doctorUid : undefined,
+      hospitalName: option === 'hospital' ? hospitalName : undefined,
+      subject,
+      description,
+      rating,
+    };
 
     try {
-      const response = await fetch('http://localhost:5000/submit-feedback', {
+      const response = await fetch('/api/feedback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(feedback),
+        body: JSON.stringify(feedbackData),
       });
 
-      const data = await response.json();
-      console.log(data);
-      setSubmitted(true);
+      if (response.ok) {
+        // Redirect to thank you page
+        router.push('/thank-you');
+      } else {
+        console.error('Failed to submit feedback');
+        setError('Failed to submit feedback. Please try again later.');
+      }
     } catch (error) {
       console.error('Error submitting feedback:', error);
+      setError('An error occurred. Please try again later.');
     }
   };
 
   return (
-    <main className='feedback-main'>
-      <h1 className="feedback-heading-one">Doctor Feedback Form</h1>
-      <p className="feedback-heading-two">Please leave your feedback survey below</p>
-      <div className='feedback-box'>
-        <form className='feedback-form' onSubmit={handleSubmit}>
-          {/* Name */}
-          <label htmlFor='name'></label>
-          <input 
-            type='text' 
-            id='name' 
-            name='name' 
-            placeholder='Enter your name' 
-            value={feedback.name} 
-            onChange={handleInputChange} 
-            required 
-            className='feedback-input'
-          /><br />
+    <div>
+      <div className='feedback-container'>
+        <h1 style={{ textAlign: 'center' }}>Feedback Form</h1>
 
-          {/* Gender */}
-          <label htmlFor='gender'></label>
-          <input 
-            type='text' 
-            id='gender' 
-            name='gender' 
-            placeholder='Enter your gender' 
-            value={feedback.gender}
-            onChange={handleInputChange} 
-            required  
-            className='feedback-input'
-          /><br />
+        {error && <p className="error-message">{error}</p>} {/* Display error message */}
 
-          {/* Age */}
-          <label htmlFor='age'></label>
-          <input 
-            type='number' 
-            id='age' 
-            name='age' 
-            min='0' 
-            placeholder='Enter your age' 
-            value={feedback.age}
-            onChange={handleInputChange} 
-            required  
-            className='feedback-input'
-          /><br />
+        <form onSubmit={handleSubmit}>
+          <label>
+            <b>Options:</b>
+            <select value={option} onChange={handleOptionChange} className='feedback-input'>
+              <option value="doctor">Doctor</option>
+              <option value="hospital">Hospital</option>
+            </select>
+          </label>
 
-          {/* Patient ID */}
-          <label htmlFor='patientId'></label>
-          <input 
-            type='text' 
-            id='patientId' 
-            name='patientId' 
-            placeholder='Enter your patient ID' 
-            value={feedback.patientId.toString()} 
-            onChange={handleInputChange} 
-            required  
-            className='feedback-input'
-          /><br />
-
-          {/* Reason for Visiting */}
-          <p className="feedback-reason">The reason you went to the doctor:</p>
-          <div className='feedback-left-align'>
+          {option === 'doctor' ? (
             <label>
-              <input 
-                type='radio' 
-                name='reason' 
-                value='advice' 
-                checked={feedback.reason === 'advice'}
-                onChange={handleInputChange} 
-                required 
-                className='feedback-radio'
-              /> To seek the doctor's advice
-            </label><br />
+              <b>Doctor UID:</b>
+              <input
+                type="text"
+                placeholder="Enter UID"
+                className='feedback-input'
+                value={doctorUid}
+                onChange={(e) => setDoctorUid(e.target.value)}
+              />
+            </label>
+          ) : (
             <label>
-              <input 
-                type='radio' 
-                name='reason' 
-                value='treatment'
-                checked={feedback.reason === 'treatment'} 
-                onChange={handleInputChange} 
-                required 
-                className='feedback-radio'
-              /> To get treatment
-            </label><br />
-            <label>
-              <input 
-                type='radio' 
-                name='reason' 
-                value='checkup'
-                checked={feedback.reason === 'checkup'}
-                onChange={handleInputChange} 
-                required 
-                className='feedback-radio'
-              /> For routine check-up
-            </label><br />
-            <label>
-              <input 
-                type='radio' 
-                name='reason' 
-                value='others' 
-                checked={feedback.reason === 'others'}
-                onChange={handleInputChange} 
-                required 
-                className='feedback-radio'
-              /> Others
-            </label><br />
-          </div>
+              <b>Hospital Name:</b>
+              <input
+                type="text"
+                placeholder="Enter Hospital Name"
+                className='feedback-input'
+                value={hospitalName}
+                onChange={(e) => setHospitalName(e.target.value)}
+              />
+            </label>
+          )}
 
-          {/* Trust Rating */}
-          <div className='rating-container'>
-            <h2>Rating Survey</h2>
-            <p>1. How would you rate the level of trust that you feel?</p>
-            <input 
-              type='text' 
-              name='trustRating' 
-              placeholder='Enter trust rating' 
-              value={feedback.trustRating}
-              onChange={handleInputChange} 
-              required  
+          <label>
+            <b>Subject:</b>
+            <input
+              type="text"
+              placeholder="Subject"
               className='feedback-input'
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
             />
+          </label>
+
+          <label>
+            <textarea
+              placeholder="Description"
+              className='feedback-textarea'
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </label>
+
+          <div className='feedback-stars'>
+            {[1, 2, 3, 4, 5].map((index) => (
+              <span
+                key={index}
+                onClick={() => handleRatingChange(index)}
+                className={index <= rating ? 'feedback-filledStar' : 'feedback-emptyStar'}
+              >
+                ★
+              </span>
+            ))}
           </div>
 
-          {/* Submit Button */}
-          <br />
-          <button type='submit' className="feedback-submit_button"><h2>Submit Feedback</h2></button>
+          <button type="submit" className='feedback-button'>
+            Submit
+          </button>
         </form>
-        {submitted && <p>Thank you for your feedback!</p>}
       </div>
-    </main>
+    </div>
   );
 };
 
-export default Feedback;
+export default FeedbackPage;

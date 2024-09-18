@@ -30,7 +30,7 @@ function getMimeTypeFromBase64(base64String:string) {
   const mimeType = base64String.match(/^data:(.*);base64,/);
   return mimeType ? mimeType[1] : null;
 }
-export default function MedicineComponent() {
+export default function MedicineComponent({show}:any) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState('');
   const [report,setReport]=useState<Report[] | null>(null)
@@ -189,12 +189,10 @@ export default function MedicineComponent() {
 
   return (
     <div className="ehr-main-cont">
-      <div className="ehr-heading-cont">
-        <h1 className="ehr-heading">Medicine Records</h1>
-      </div>
-      <button className="upload-report-button" onClick={()=>setUploadModel(true)}>
+
+     {show && <button className="upload-report-button" onClick={()=>setUploadModel(true)}>
           Upload Medicine
-        </button>
+        </button>}
       <div className="ehr-list-cont">
         <table className="ehr-table">
           <thead>

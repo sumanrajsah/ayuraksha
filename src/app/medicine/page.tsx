@@ -9,7 +9,12 @@ export default function MedicineRecords(){
     return(
         <main className="medicine-main">
             <Navbar/>
-            <MedicineComponent/>
+            <div className="medicine-record-cont">
+
+        <h1 className="medicine-heading">Medicine Records</h1>
+            <MedicineComponent show={true}/>
+            </div>
+
         </main>
     )
 }

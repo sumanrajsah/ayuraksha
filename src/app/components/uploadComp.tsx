@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Close } from "./ehraction";
 import axios from "axios";
-
+import './uploadComp.css';
 interface UploadForm {
   issue: string;
   doctorName: string;

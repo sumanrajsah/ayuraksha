@@ -5,7 +5,12 @@ import { cookies } from 'next/headers';
 import { ethers } from 'ethers';
 import { systemAbi, userAbi } from '@/app/components/abi';
 import CryptoJS from 'crypto-js';
+import { PinataSDK } from "pinata-web3";
 
+const pinata = new PinataSDK({
+  pinataJwt: process.env.NEXT_PUBLIC_PINATA_JWT!,
+  pinataGateway: "rose-supposed-gamefowl-223.mypinata.cloud",
+});
 
 const network = "sepolia";
 const provider = ethers.getDefaultProvider(network,{etherscan:process.env.NEXT_PUBLIC_ETHERSCAN_API});
@@ -51,8 +56,12 @@ function convertIpfsUriToHttp(ipfsUri:any) {
   }
   return ipfsUri; // Return the original URI if it's not IPFS format
 }
-export async function GET(req:NextRequest){
+const key = process.env.NEXT_PUBLIC_END_KEY;
+
+export async function POST(req:NextRequest){
     try{
+        const al= await req.json();
+        console.log(al)
         const a=await client.connect()
         if(a){
           const db= client.db('ayuraksha');
@@ -62,30 +71,19 @@ export async function GET(req:NextRequest){
           if(!process.env.NEXT_PUBLIC_SYSTEM_CONTRACT_ADDRESS){
               return ;
           }
+          if(!key){
+            return
+          }
+          const data = CryptoJS.AES.encrypt(JSON.stringify({al}), key).toString();
+          const file = new File([data], "hello.json", { type: "application/json" })
+          const upload = await pinata.upload.file(file)
           const systemContract = new ethers.Contract(process.env.NEXT_PUBLIC_SYSTEM_CONTRACT_ADDRESS, systemAbi,wallet); 
           const patientAccount = await systemContract.getPatientAccount(aadharHash)
           const patientContract=  new ethers.Contract(`${patientAccount}`, userAbi,wallet);
-          const check_user= await user.findOne({auid:`${patientAccount}`});
-          console.log(check_user)
-          const profile = await patientContract.patientProfileCid();
-          console.log(profile)
-          const allergy = await patientContract.patientAlergiesCid();
-          const response = await fetch(convertIpfsUriToHttp(profile));
-          const responseAl = await fetch(convertIpfsUriToHttp(allergy));
-          const blob = await response.blob(); // Get the file as a Blob
-          const blobAl = await responseAl.blob(); // Get the file as a Blob
-          console.log(await blob.text())
-          const mimeType = blob.type; // Get the MIME type of the blob
-          if(!process.env.NEXT_PUBLIC_END_KEY){
-            return
-          }
-          const content = CryptoJS.AES.decrypt(await blob.text(),process.env.NEXT_PUBLIC_END_KEY)
-          const contentAl = CryptoJS.AES.decrypt(await blobAl.text(),process.env.NEXT_PUBLIC_END_KEY)
-          if(profile){
-            const profileStringified =content.toString(CryptoJS.enc.Utf8);
-            const AlStringified =contentAl.toString(CryptoJS.enc.Utf8);
-            console.log(JSON.parse(profileStringified))
-        return NextResponse.json({success:true,reports:JSON.parse(profileStringified),personalInfo:check_user,allergy:JSON.parse(AlStringified).al.allergy});
+           const allergy = await patientContract.setAlergies(`ipfs://${upload.IpfsHash}`);
+          if(allergy){
+
+        return NextResponse.json({success:true,message:'successful'});
     }
           }
           return NextResponse.json({success:false,message:'try again'})

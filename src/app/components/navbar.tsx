@@ -6,7 +6,7 @@ import Link from "next/link";
 import axios from "axios";
 import { ProfileContext } from "../profileContext";
 
-export default function Navbar() {
+export default function Navbar({ showLogo=true }) {
   const [isExpanded, setIsExpanded] = useState(false); // State to track if the menu is expanded
   const profileContext = useContext(ProfileContext);
   if (!profileContext) {
@@ -19,13 +19,13 @@ export default function Navbar() {
       try{
           const response= await axios.get('/api/profile/patient');
           if(response.data.success){
-              console.log((response.data.reports))
+             
               setProfileData((response.data.reports))
           }
       }catch(e){}
   }
   getProfileData();
-  })
+  },[])
   console.log(profileData)
  
 
@@ -39,7 +39,7 @@ export default function Navbar() {
       <div className={`side-navbar ${isExpanded ? "expanded" : ""}`}> {/* Toggle the class based on state */}
         <div className="ayuraksha-logo-cont">
         <Image
-          src={!isExpanded ? 'ayuraksha-logo.svg' : 'ayuraksha-logo-full.svg'} // Use the logo state variable
+          src={!isExpanded ? '/ayuraksha-logo.svg' : '/ayuraksha-logo-full.svg'} // Use the logo state variable
           alt="Ayuraksha Logo"
           height={isExpanded ? 50: 80}
           width={isExpanded ? 190 : 50}
@@ -71,7 +71,7 @@ export default function Navbar() {
           <HospitalsButton />
           {isExpanded && <span className="icon-label">Hospitals</span>}
         </Link>
-        <Link href={'#'} className="menu-item">
+        <Link href={'/appointment'} className="menu-item">
           <AppointmentsButton />
           {isExpanded && <span className="icon-label">Appointments</span>}
         </Link>
@@ -79,11 +79,11 @@ export default function Navbar() {
           <ResourcesButton />
           {isExpanded && <span className="icon-label">Resources</span>}
         </Link>
-        <Link href={'#'} className="menu-item">
+        <Link href={'/contact'} className="menu-item">
           <ContactUs />
           {isExpanded && <span className="icon-label">Contact Us</span>}
         </Link>
-        <Link href={'#'} className="menu-item">
+        <Link href={'/faq'} className="menu-item">
           <FaqButton />
           {isExpanded && <span className="icon-label">FAQ</span>}
         </Link>

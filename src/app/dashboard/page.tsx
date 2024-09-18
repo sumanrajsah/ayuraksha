@@ -7,6 +7,8 @@ import axios from "axios";
 import { ProfileContext } from "../profileContext";
 import Navbar from "../components/navbar";
 import PatientAppointment from '../components/patientappointment';
+import Ehr from "../components/ehr";
+import MedicineComponent from "../components/medicineComp";
 
 
 export default function PatientDashboard() {
@@ -99,46 +101,23 @@ export default function PatientDashboard() {
                             </div>
                         </div>
                     </div>
-                    <div className="patient-dashboard-info-cont patient-dashboard-box-border">
+                    <div className="patient-dashboard-info-cont">
                         <h3 className="patient-dashboard-class-pink patient-dashboard-personl-info-heading">APPOINTMENTS</h3>
                         <div className="patient-dashboard-patient-appointments">
-                            <PatientAppointment></PatientAppointment>
+                            <PatientAppointment/>
                         </div>
-                    </div>
-                    <div className="patient-dashboard-overview-cont patient-dashboard-box-border">
-                       
-
-                    </div>
-                    <div className="patient-dashboard-history-cont patient-dashboard-box-border">
-                        
                     </div>
 
                 </div>
-
-                {/* Modal Structure */}
-                {isModalOpen && (
-                    <div id="miniModal" className="modal">
-                        <div className="modal-content">
-                            {/* Close button */}
-                            <span className="close-btn" onClick={closeModal}>
-                                &times;
-                            </span>
-                            <p>Allergies</p>
-                            <p>Fragrance</p>
-                            <p>Peanut</p>
-                            <p>Egg</p>
-                            <p>Milk</p>
-                            <p>Latex</p>
-                            <p>Sesame</p>
-                            <p>Mold</p>
-                            <p>Fragrance</p>
-                            <p>Peanut</p>
-                            <p>Egg</p>
-                            <p>Milk</p>
-
-                        </div>
+                <div className="ehrd-cont">
+                    <h2>EHR</h2>
+                    <Ehr/>
                     </div>
-                )}
+                    <br/>
+                <div className="ehrd-cont">
+                    <h2>Medication</h2>
+                  <MedicineComponent/>
+                    </div>
             </div>
         </main>
     );

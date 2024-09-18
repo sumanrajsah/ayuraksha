@@ -253,4 +253,14 @@ td {
 td.status {
     color: rgba(212, 97, 109, 1);
 }
+.ehrd-cont{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top:10%;
+    right: 5%;
+    width: 90vw;
+}
 

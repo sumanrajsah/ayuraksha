@@ -484,174 +484,286 @@ export const userAbi = [
 	}
 ];
 
-export const doctorAbi=[
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [],
-		"name": "doctor",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "patientContract",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "date",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "issue",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "consultedBy",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "file",
-				"type": "string"
-			}
-		],
-		"name": "updatePatientMedicalRecord",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "patientContract",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "date",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "file",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "issue",
-				"type": "string"
-			}
-		],
-		"name": "updatePatientMedicineRecord",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "patientContract",
-				"type": "address"
-			}
-		],
-		"name": "viewPatientMedicalRecords",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "date",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "issue",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "doctor",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "consultedBy",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "file",
-						"type": "string"
-					}
-				],
-				"internalType": "struct IPatientRecord.MedicalRecord[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "patientContract",
-				"type": "address"
-			}
-		],
-		"name": "viewPatientMedicineRecords",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "date",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "doctor",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "file",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "issue",
-						"type": "string"
-					}
-				],
-				"internalType": "struct IPatientRecord.Medicine[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-]
+export const doctorAbi=
+	[
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "_profileCid",
+					"type": "string"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "constructor"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				}
+			],
+			"name": "OwnableInvalidOwner",
+			"type": "error"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				}
+			],
+			"name": "OwnableUnauthorizedAccount",
+			"type": "error"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "previousOwner",
+					"type": "address"
+				},
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "newOwner",
+					"type": "address"
+				}
+			],
+			"name": "OwnershipTransferred",
+			"type": "event"
+		},
+		{
+			"inputs": [],
+			"name": "doctor",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "owner",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "profileCid",
+			"outputs": [
+				{
+					"internalType": "string",
+					"name": "",
+					"type": "string"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "renounceOwnership",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "_profileCid",
+					"type": "string"
+				}
+			],
+			"name": "setProfileCid",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "newOwner",
+					"type": "address"
+				}
+			],
+			"name": "transferOwnership",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "patientContract",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "date",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "issue",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "consultedBy",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "file",
+					"type": "string"
+				}
+			],
+			"name": "updatePatientMedicalRecord",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "patientContract",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "date",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "doctorname",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "file",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "issue",
+					"type": "string"
+				}
+			],
+			"name": "updatePatientMedicineRecord",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "patientContract",
+					"type": "address"
+				}
+			],
+			"name": "viewPatientMedicalRecords",
+			"outputs": [
+				{
+					"components": [
+						{
+							"internalType": "uint256",
+							"name": "date",
+							"type": "uint256"
+						},
+						{
+							"internalType": "string",
+							"name": "issue",
+							"type": "string"
+						},
+						{
+							"internalType": "string",
+							"name": "doctor",
+							"type": "string"
+						},
+						{
+							"internalType": "string",
+							"name": "consultedBy",
+							"type": "string"
+						},
+						{
+							"internalType": "string",
+							"name": "file",
+							"type": "string"
+						}
+					],
+					"internalType": "struct IPatientRecord.MedicalRecord[]",
+					"name": "",
+					"type": "tuple[]"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "patientContract",
+					"type": "address"
+				}
+			],
+			"name": "viewPatientMedicineRecords",
+			"outputs": [
+				{
+					"components": [
+						{
+							"internalType": "uint256",
+							"name": "date",
+							"type": "uint256"
+						},
+						{
+							"internalType": "string",
+							"name": "doctor",
+							"type": "string"
+						},
+						{
+							"internalType": "string",
+							"name": "file",
+							"type": "string"
+						},
+						{
+							"internalType": "string",
+							"name": "issue",
+							"type": "string"
+						}
+					],
+					"internalType": "struct IPatientRecord.Medicine[]",
+					"name": "",
+					"type": "tuple[]"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		}
+	]
 
 export const systemAbi=[
 	{

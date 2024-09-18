@@ -11,7 +11,7 @@ export default function DoctorProfile() {
                 </div>
                 <div className="doctorprofile-content-cont">
                     <div className="doctor-profile-photo">
-                        <Image src={'profile-image.svg'} priority alt="Photo" height={140} width={140} />
+                        <Image src={'/profile-image.svg'} priority alt="Photo" height={140} width={140} />
                     </div>
                     <div className="doctor-description">
                         <div className="doctor-name-cont">

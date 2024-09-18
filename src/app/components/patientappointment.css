@@ -64,6 +64,7 @@ th {
     color: #333;
     text-align: center;
     padding: 12px 8px;
+    font-size: 14px;
 }
 
 /* Style for table rows */
@@ -81,6 +82,7 @@ tr:nth-child(even) {
 td {
   padding: 12px 8px; /* Adjust padding to increase row height */
   text-align: center;
+  font-size: 14px;
 }
 
 /* Highlight the status in red */
